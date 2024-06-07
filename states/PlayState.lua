@@ -19,6 +19,12 @@ BIRD_HEIGHT = 24
 
 local spawn_timer = 2
 
+local bronze_medal = love.graphics.newImage('madels/bronze_madel.png')
+local gold_medal = love.graphics.newImage('madels/gold_madel.png')
+local silver_medal = love.graphics.newImage('madels/silver_madel.png')
+local jesus = love.graphics.newImage('madels/silver_madel.png')
+
+
 
 function PlayState:init()
     self.bird = Bird()
@@ -112,6 +118,15 @@ function PlayState:render()
 
     love.graphics.setFont(flappyFont)
     love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
+    if self.score > 1 then
+        love.graphics.draw(bronze_medal, 150, 8, 0, 3/VIRTUAL_WIDTH, 3/VIRTUAL_HEIGHT)
+    end
+    if self.score > 4 then
+        love.graphics.draw(silver_medal, 200, 8, 0, 13/VIRTUAL_WIDTH, 13/VIRTUAL_HEIGHT)
+    end
+    if self.score > 9 then
+        love.graphics.draw(gold_medal, 250, 8, 0, 3/VIRTUAL_WIDTH, 3/VIRTUAL_HEIGHT)
+    end
 
     self.bird:render()
 end
