@@ -1,30 +1,31 @@
-
-
-
-PauseState = Class{__includes = BaseState}
+PauseState = Class { __includes = BaseState }
 
 
 function PauseState:init()
-    self.score = 0
+    self.params = {}
 end
 
 function PauseState:update(dt)
+    backgroundScroll = (backgroundScroll - BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
+    groundScroll = 0
     if love.keyboard.wasPressed('p') or love.keyboard.wasPressed('P') then
         sounds['music']:play()
-        gStateMachine:change('play', self.score)
+        gStateMachine:change('play', self.params)
     end
-
 end
 
 function PauseState:enter(params)
-    self.score = params.score
+    self.params = params
 end
 
 function PauseState:exit()
 
 end
-                
+
 function PauseState:render()
-        love.graphics.rectangle('fill', VIRTUAL_WIDTH/2 - 10, VIRTUAL_HEIGHT/2 - 20, 10, 40)
-        love.graphics.rectangle('fill', VIRTUAL_WIDTH/2 + 10, VIRTUAL_HEIGHT/2 - 20, 10, 40)
+    for k, pair in pairs(self.params['pipePairs']) do
+        pair:render()
+    end
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 10, VIRTUAL_HEIGHT / 2 - 20, 10, 40)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 + 10, VIRTUAL_HEIGHT / 2 - 20, 10, 40)
 end

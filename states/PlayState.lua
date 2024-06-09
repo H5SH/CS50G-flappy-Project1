@@ -24,7 +24,6 @@ local pause = false
 local bronze_medal = love.graphics.newImage('madels/bronze_madel.png')
 local gold_medal = love.graphics.newImage('madels/gold_madel.png')
 local silver_medal = love.graphics.newImage('madels/silver_madel.png')
-local jesus = love.graphics.newImage('madels/jesus.png')
 
 
 
@@ -45,7 +44,8 @@ function PlayState:update(dt)
         sounds['music']:pause()
         sounds['pause']:play()
         gStateMachine:change('pause', {
-            score = self.score
+            score = self.score,
+            pipePairs = self.pipePairs
         })
     elseif not pause then
         -- update timer for pipe spawning
@@ -140,9 +140,7 @@ function PlayState:render()
     if self.score > 9 then
         love.graphics.draw(gold_medal, 250, 8, 0, 3 / VIRTUAL_WIDTH, 3 / VIRTUAL_HEIGHT)
     end
-    -- if self.score > 0 then
-    --     love.graphics.draw(jesus, 200, 8, 0, 70/VIRTUAL_WIDTH, 70/VIRTUAL_HEIGHT)
-    -- end
+
 
     self.bird:render()
 end
@@ -150,9 +148,12 @@ end
 --[[
     Called when this state is transitioned to from another state.
 ]]
-function PlayState:enter(score)
+function PlayState:enter(params)
     -- if we're coming from death, restart scrolling
-    self.score = score and score or 0
+    if params then
+        self.score = params['score']
+        self.pipePairs = params['pipePairs']
+    end
     scrolling = true
 end
 

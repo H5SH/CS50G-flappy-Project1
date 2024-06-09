@@ -53,15 +53,15 @@ VIRTUAL_WIDTH = 512
 VIRTUAL_HEIGHT = 288
 
 local background = love.graphics.newImage('background.png')
-local backgroundScroll = 0
+backgroundScroll = 0
 
 local ground = love.graphics.newImage('ground.png')
-local groundScroll = 0
+groundScroll = 0
 
-local BACKGROUND_SCROLL_SPEED = 30
-local GROUND_SCROLL_SPEED = 60
+BACKGROUND_SCROLL_SPEED = 30
+GROUND_SCROLL_SPEED = 60
 
-local BACKGROUND_LOOPING_POINT = 413
+BACKGROUND_LOOPING_POINT = 413
 
 function love.load()
     -- initialize our nearest-neighbor filter

@@ -8,7 +8,10 @@
     PlayState when they collide with a Pipe.
 ]]
 
-ScoreState = Class{__includes = BaseState}
+ScoreState = Class { __includes = BaseState }
+
+local jesus = love.graphics.newImage('madels/jesus.png')
+
 
 --[[
     When we enter the score state, we expect to receive the score
@@ -27,11 +30,15 @@ end
 
 function ScoreState:render()
     -- simply render the score to the middle of the screen
-    love.graphics.setFont(flappyFont)
-    love.graphics.printf('Oof! You lost!', 0, 64, VIRTUAL_WIDTH, 'center')
+    if self.score == 0 then
+        love.graphics.draw(jesus, 200, 8, 0, 70 / VIRTUAL_WIDTH, 70 / VIRTUAL_HEIGHT)
+    else
+        love.graphics.setFont(flappyFont)
+        love.graphics.printf('Oof! You lost!', 0, 64, VIRTUAL_WIDTH, 'center')
 
-    love.graphics.setFont(mediumFont)
-    love.graphics.printf('Score: ' .. tostring(self.score), 0, 100, VIRTUAL_WIDTH, 'center')
+        love.graphics.setFont(mediumFont)
+        love.graphics.printf('Score: ' .. tostring(self.score), 0, 100, VIRTUAL_WIDTH, 'center')
 
-    love.graphics.printf('Press Enter to Play Again!', 0, 160, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press Enter to Play Again!', 0, 160, VIRTUAL_WIDTH, 'center')
+    end
 end
